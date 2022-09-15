@@ -1,28 +1,12 @@
 /**
-  ******************************************************************************
-  * @file      startup_stm32f407xx.s
-  * @author    MCD Application Team
-  * @brief     STM32F407xx Devices vector table for GCC based toolchains. 
-  *            This module performs:
-  *                - Set the initial SP
-  *                - Set the initial PC == Reset_Handler,
-  *                - Set the vector table entries with the exceptions ISR address
-  *                - Branches to main in the C library (which eventually
-  *                  calls main()).
-  *            After Reset the Cortex-M4 processor is in Thread mode,
-  *            priority is Privileged, and the Stack is set to Main.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
+STM32f407上电过程。
+
+
+可参考
+https://juejin.cn/post/7136036194197962788
+
+
+
   */
     
   .syntax unified
@@ -58,7 +42,7 @@ defined in linker script */
     .section  .text.Reset_Handler
   .weak  Reset_Handler
   .type  Reset_Handler, %function
-Reset_Handler:  
+Reset_Handler:           //上电复位执行
   ldr   sp, =_estack     /* set stack pointer */
 
 /* Copy the data segment initializers from flash to SRAM */  
