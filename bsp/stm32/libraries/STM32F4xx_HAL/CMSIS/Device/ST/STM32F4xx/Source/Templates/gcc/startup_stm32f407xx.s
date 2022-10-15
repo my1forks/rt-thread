@@ -4,6 +4,7 @@ STM32f407上电过程。
 
 可参考
 https://juejin.cn/post/7136036194197962788
+https://zhuanlan.zhihu.com/p/32206315
 
 
 
@@ -42,12 +43,16 @@ defined in linker script */
     .section  .text.Reset_Handler
   .weak  Reset_Handler
   .type  Reset_Handler, %function
-Reset_Handler:           //上电复位执行
-  ldr   sp, =_estack     /* set stack pointer */
 
-/* Copy the data segment initializers from flash to SRAM */  
+
+// memcpy(_sdata,_sidata,x);
+//
+//
+//
+Reset_Handler:           
+  ldr sp, =_estack    
   ldr r0, =_sdata
-  ldr r1, =_edata
+  ldr r1, =_edata       
   ldr r2, =_sidata
   movs r3, #0
   b LoopCopyDataInit
@@ -55,7 +60,7 @@ Reset_Handler:           //上电复位执行
 CopyDataInit:
   ldr r4, [r2, r3]
   str r4, [r0, r3]
-  adds r3, r3, #4
+  adds r3, r3, #4   
 
 LoopCopyDataInit:
   adds r4, r0, r3
@@ -73,15 +78,13 @@ FillZerobss:
   adds r2, r2, #4
 
 LoopFillZerobss:
-  cmp r2, r4
+  cmp r2, r4  
   bcc FillZerobss
 
-/* Call the clock system intitialization function.*/
   bl  SystemInit   
-/* Call static constructors */
-    bl __libc_init_array
-/* Call the application's entry point.*/
-  bl  entry
+  bl __libc_init_array
+  //bl  main
+  bl entry
   bx  lr    
 .size  Reset_Handler, .-Reset_Handler
 

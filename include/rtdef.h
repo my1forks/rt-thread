@@ -426,7 +426,8 @@ typedef struct rt_object *rt_object_t;                  /**< Type for kernel obj
  *  - Unknown
  *  - Static
  */
-enum rt_object_class_type
+//rtdef.h
+enum rt_object_class_type   
 {
     RT_Object_Class_Null          = 0x00,      /**< The object is not used. */
     RT_Object_Class_Thread        = 0x01,      /**< The object is a thread. */

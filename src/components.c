@@ -225,13 +225,14 @@ void rt_application_init(void)
     rt_thread_startup(tid);
 }
 
+//
 /**
  * @brief  This function will call all levels of initialization functions to complete
  *         the initialization of the system, and finally start the scheduler.
  */
 int rtthread_startup(void)
 {
-    rt_hw_interrupt_disable();
+    rt_hw_interrupt_disable();          //定义在contet-gcc.s
 
     /* board level initialization
      * NOTE: please initialize heap inside board initialization.
@@ -239,10 +240,10 @@ int rtthread_startup(void)
     rt_hw_board_init();
 
     /* show RT-Thread version */
-    rt_show_version();
+    rt_show_version();//定义在kservice.c
 
     /* timer system initialization */
-    rt_system_timer_init();
+    rt_system_timer_init();//定义在timer.c
 
     /* scheduler system initialization */
     rt_system_scheduler_init();
