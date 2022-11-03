@@ -149,6 +149,7 @@ void SystemClearSystickFlag (void);
  */
 bool SystemInISR(void);
 
+//
 #define SysTick_Handler LPIT0_IRQHandler
 
 /**

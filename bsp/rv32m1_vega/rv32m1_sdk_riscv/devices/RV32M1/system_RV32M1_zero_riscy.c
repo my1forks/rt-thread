@@ -88,7 +88,7 @@ extern void FTFE_Command_Complete_IRQHandler(void);
 extern void FTFE_Read_Collision_IRQHandler(void);
 extern void SPM_IRQHandler(void);
 extern void SCG_IRQHandler(void);
-extern void LPIT0_IRQHandler(void);
+extern void LPIT0_IRQHandler(void); //系统时钟isr
 extern void LPTMR0_IRQHandler(void);
 extern void LPTMR1_IRQHandler(void);
 extern void TPM0_IRQHandler(void);
@@ -463,6 +463,7 @@ __attribute__((weak)) void SystemIrqHandler(uint32_t mcause) {
 #define SYSTICK_LPIT_CH 0
 #define SYSTICK_LPIT_IRQn LPIT1_IRQn
 
+// risc-v下使用LPIT0做系统时钟
 /* Leverage LPIT0 to provide Systick */
 void SystemSetupSystick(uint32_t tickRateHz, uint32_t intPriority)
 {
