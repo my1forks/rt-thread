@@ -416,6 +416,7 @@ void rt_object_detach(rt_object_t object)
  *
  * @return object
  */
+// 创建对象
 rt_object_t rt_object_allocate(enum rt_object_class_type type, const char *name)
 {
     struct rt_object *object;
@@ -431,6 +432,7 @@ rt_object_t rt_object_allocate(enum rt_object_class_type type, const char *name)
     information = rt_object_get_information(type);
     RT_ASSERT(information != RT_NULL);
 
+    // 分配内存
     object = (struct rt_object *)RT_KERNEL_MALLOC(information->object_size);
     if (object == RT_NULL)
     {
@@ -466,6 +468,7 @@ rt_object_t rt_object_allocate(enum rt_object_class_type type, const char *name)
     else
 #endif /* RT_USING_MODULE */
     {
+        // 插入链表
         /* insert object into information object list */
         rt_list_insert_after(&(information->object_list), &(object->list));
     }
@@ -482,6 +485,7 @@ rt_object_t rt_object_allocate(enum rt_object_class_type type, const char *name)
  *
  * @param object is the specified object to be deleted.
  */
+// 删除对象
 void rt_object_delete(rt_object_t object)
 {
     rt_base_t level;

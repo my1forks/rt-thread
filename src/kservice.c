@@ -1500,6 +1500,7 @@ RT_WEAK void rt_system_heap_init(void *begin_addr, void *end_addr)
  *
  * @return the pointer to allocated memory or NULL if no free memory was found.
  */
+// 堆内存分配
 RT_WEAK void *rt_malloc(rt_size_t size)
 {
     rt_base_t level;

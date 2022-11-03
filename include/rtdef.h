@@ -401,10 +401,6 @@ struct rt_object
     char       name[RT_NAME_MAX];                       /**< name of kernel object */
     rt_uint8_t type;                                    /**< type of kernel object */
     rt_uint8_t flag;                                    /**< flag of kernel object */
-
-#ifdef RT_USING_MODULE
-    void      *module_id;                               /**< id of application module */
-#endif /* RT_USING_MODULE */
     rt_list_t  list;                                    /**< list node of kernel object */
 };
 typedef struct rt_object *rt_object_t;                  /**< Type for kernel objects. */
@@ -429,21 +425,21 @@ typedef struct rt_object *rt_object_t;                  /**< Type for kernel obj
 //rtdef.h
 enum rt_object_class_type   
 {
-    RT_Object_Class_Null          = 0x00,      /**< The object is not used. */
-    RT_Object_Class_Thread        = 0x01,      /**< The object is a thread. */
-    RT_Object_Class_Semaphore     = 0x02,      /**< The object is a semaphore. */
-    RT_Object_Class_Mutex         = 0x03,      /**< The object is a mutex. */
-    RT_Object_Class_Event         = 0x04,      /**< The object is a event. */
-    RT_Object_Class_MailBox       = 0x05,      /**< The object is a mail box. */
-    RT_Object_Class_MessageQueue  = 0x06,      /**< The object is a message queue. */
-    RT_Object_Class_MemHeap       = 0x07,      /**< The object is a memory heap. */
-    RT_Object_Class_MemPool       = 0x08,      /**< The object is a memory pool. */
-    RT_Object_Class_Device        = 0x09,      /**< The object is a device. */
-    RT_Object_Class_Timer         = 0x0a,      /**< The object is a timer. */
-    RT_Object_Class_Module        = 0x0b,      /**< The object is a module. */
-    RT_Object_Class_Memory        = 0x0c,      /**< The object is a memory. */
-    RT_Object_Class_Unknown       = 0x0e,      /**< The object is unknown. */
-    RT_Object_Class_Static        = 0x80       /**< The object is a static object. */
+    RT_Object_Class_Null          = 0x00,      
+    RT_Object_Class_Thread        = 0x01,      
+    RT_Object_Class_Semaphore     = 0x02,      
+    RT_Object_Class_Mutex         = 0x03,      
+    RT_Object_Class_Event         = 0x04,      
+    RT_Object_Class_MailBox       = 0x05,      
+    RT_Object_Class_MessageQueue  = 0x06,      
+    RT_Object_Class_MemHeap       = 0x07,      
+    RT_Object_Class_MemPool       = 0x08,      
+    RT_Object_Class_Device        = 0x09,      
+    RT_Object_Class_Timer         = 0x0a,      
+    RT_Object_Class_Module        = 0x0b,     
+    RT_Object_Class_Memory        = 0x0c,      
+    RT_Object_Class_Unknown       = 0x0e,     
+    RT_Object_Class_Static        = 0x80       
 };
 
 /**
@@ -634,10 +630,6 @@ struct rt_thread
     char        name[RT_NAME_MAX];                      /**< the name of thread */
     rt_uint8_t  type;                                   /**< type of object */
     rt_uint8_t  flags;                                  /**< thread's flags */
-
-#ifdef RT_USING_MODULE
-    void       *module_id;                              /**< id of application module */
-#endif /* RT_USING_MODULE */
 
     rt_list_t   list;                                   /**< the object list */
     rt_list_t   tlist;                                  /**< the thread list */
