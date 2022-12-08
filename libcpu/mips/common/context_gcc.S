@@ -66,6 +66,8 @@ _reswitch:
     jr      ra
     nop
 
+
+//mips线程切换？
 /*
  * void rt_hw_context_switch_interrupt_do(rt_base_t flag)
  */
@@ -73,7 +75,7 @@ _reswitch:
     .globl rt_interrupt_leave
     .globl rt_general_exc_dispatch
     .globl mips_irq_handle
-mips_irq_handle:
+mips_irq_handle:    
     SAVE_ALL
 
     /* let k0 keep the current context sp */

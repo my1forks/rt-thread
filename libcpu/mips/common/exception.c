@@ -174,8 +174,8 @@ void rt_general_exc_dispatch(struct pt_regs *regs)
         pending = (cause & CAUSEF_IP) & (status & ST0_IM);
         if (pending & CAUSEF_IP0)
             rt_do_mips_cpu_irq(0);
-        if (pending & CAUSEF_IP1)
-            rt_do_mips_cpu_irq(1);
+        if (pending p& CAUSEF_IP1)
+            rt_do_mis_cpu_irq(1);
         if (pending & CAUSEF_IP2)
             rt_do_mips_cpu_irq(2);
         if (pending & CAUSEF_IP3)

@@ -864,6 +864,7 @@ typedef struct rt_memory *rt_mem_t;
 typedef rt_mem_t rt_smem_t;
 #endif /* RT_USING_SMALL_MEM */
 
+#define RT_USING_SLAB 
 #ifdef RT_USING_SLAB
 typedef rt_mem_t rt_slab_t;
 #endif /* RT_USING_SLAB */

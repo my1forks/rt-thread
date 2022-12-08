@@ -183,7 +183,10 @@ rt_smem_t rt_smem_init(const char    *name,
     struct rt_small_mem *small_mem;
     rt_ubase_t start_addr, begin_align, end_align, mem_size;
 
+    //地址最开始的88个字节用来存放rt_small_mem结构体
     small_mem = (struct rt_small_mem *)RT_ALIGN((rt_ubase_t)begin_addr, RT_ALIGN_SIZE);
+
+
     start_addr = (rt_ubase_t)small_mem + sizeof(*small_mem);
     begin_align = RT_ALIGN((rt_ubase_t)start_addr, RT_ALIGN_SIZE);
     end_align   = RT_ALIGN_DOWN((rt_ubase_t)begin_addr + size, RT_ALIGN_SIZE);
@@ -207,12 +210,14 @@ rt_smem_t rt_smem_init(const char    *name,
     /* initialize small memory object */
     rt_object_init(&(small_mem->parent.parent), RT_Object_Class_Memory, name);
     small_mem->parent.algorithm = "small";
-    small_mem->parent.address = begin_align;
-    small_mem->parent.total = mem_size;
+
+    small_mem->parent.address = begin_align;    //真正可用的起始地址
+    small_mem->parent.total = mem_size;         //真正可用的大小
     small_mem->mem_size_aligned = mem_size;
 
     /* point to begin address of heap */
-    small_mem->heap_ptr = (rt_uint8_t *)begin_align;
+    // 对齐过的内存起始地址
+    small_mem->heap_ptr = (rt_uint8_t *)begin_align; //同样是真正可用的起始地址
 
     RT_DEBUG_LOG(RT_DEBUG_MEM, ("mem init, heap begin address 0x%x, size %d\n",
                                 (rt_ubase_t)small_mem->heap_ptr, small_mem->mem_size_aligned));
@@ -236,6 +241,7 @@ rt_smem_t rt_smem_init(const char    *name,
 #endif /* RT_USING_MEMTRACE */
 
     /* initialize the lowest-free pointer to the start of the heap */
+    //lfree固定指向第一个空闲内存块
     small_mem->lfree = (struct rt_small_mem_item *)small_mem->heap_ptr;
 
     return &small_mem->parent;
@@ -276,6 +282,7 @@ RTM_EXPORT(rt_smem_detach);
  *
  * @return the pointer to allocated memory or NULL if no free memory was found.
  */
+//小内存 分配算法
 void *rt_smem_alloc(rt_smem_t m, rt_size_t size)
 {
     rt_size_t ptr, ptr2;
@@ -307,7 +314,7 @@ void *rt_smem_alloc(rt_smem_t m, rt_size_t size)
     if (size < MIN_SIZE_ALIGNED)
         size = MIN_SIZE_ALIGNED;
 
-    if (size > small_mem->mem_size_aligned)
+    if (size > small_mem->mem_size_aligned) //大于可用的实际内存
     {
         RT_DEBUG_LOG(RT_DEBUG_MEM, ("no memory\n"));
 
@@ -400,6 +407,7 @@ void *rt_smem_alloc(rt_smem_t m, rt_size_t size)
                           (rt_ubase_t)(mem->next - ((rt_uint8_t *)mem - small_mem->heap_ptr))));
 
             /* return the memory data except mem struct */
+            //前面多个item的结构体？
             return (rt_uint8_t *)mem + SIZEOF_STRUCT_MEM;
         }
     }

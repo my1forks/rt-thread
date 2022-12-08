@@ -55,6 +55,7 @@
 #include <rthw.h>
 #include <rtthread.h>
 
+#define RT_USING_SLAB
 #if defined (RT_USING_SLAB)
 /*
  * slab allocator implementation

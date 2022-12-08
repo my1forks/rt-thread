@@ -63,7 +63,7 @@ enum rt_object_info_type
     RT_Object_Info_Unknown,                            /**< The object is unknown. */
 };
 
-// 其实就是定义rt_object_information结构中的object_list和object_size
+// 其实就是定义rt_object_information结构中的object_list的prev项和next项
 #define _OBJ_CONTAINER_LIST_INIT(c)     \
     {&(_object_container[c].object_list), &(_object_container[c].object_list)}
 
