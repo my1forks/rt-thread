@@ -360,15 +360,6 @@ void rt_object_init(struct rt_object         *object,
 
     /* lock interrupt */
     level = rt_hw_interrupt_disable();
-
-#ifdef RT_USING_MODULE
-    if (module)
-    {
-        rt_list_insert_after(&(module->object_list), &(object->list));
-        object->module_id = (void *)module;
-    }
-    else
-#endif /* RT_USING_MODULE */
     {
         /* insert object into information object list */
         rt_list_insert_after(&(information->object_list), &(object->list));
