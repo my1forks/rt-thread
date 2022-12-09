@@ -322,9 +322,6 @@ void rt_object_init(struct rt_object         *object,
     rt_base_t level;
     struct rt_list_node *node = RT_NULL;
     struct rt_object_information *information;
-#ifdef RT_USING_MODULE
-    struct rt_dlmodule *module = dlmodule_self();
-#endif /* RT_USING_MODULE */
 
     /* get object information */
     information = rt_object_get_information(type);
